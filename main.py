@@ -11,7 +11,7 @@ from kivy.properties import *
 import sys
 from kivy.uix.label import Label
 from kivy.lang import Builder
-from kivy.core.audio import SoundLoader
+#from kivy.core.audio import SoundLoader
 
 import sys
 
@@ -67,7 +67,7 @@ except ImportError:
 class GameScreen(Screen):
     
     level = NumericProperty(1)
-    applause_sound = SoundLoader.load('Sounds/applause.mp3')
+    #applause_sound = SoundLoader.load('Sounds/applause.mp3')
     #question = ObjectProperty({})
     
     def __init__(self, **kw):
@@ -92,7 +92,7 @@ class GameScreen(Screen):
             
         self.question = self.g.next_question()
         self.set_level(self.level + 1)
-        self.applause_sound.play()
+        #self.applause_sound.play()
         print(self.ids.q_img.source)
     def on_enter(self, *args):
         self.level = 0
