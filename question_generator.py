@@ -1,46 +1,51 @@
 from DataSet import DS
 import random
 
-quesTypeText = ['מהי הברכה הראשונה למקרה זה?',
-             'מה מבין הבאים מתאים לברכה זו?']
-quesTypes = [0, 1, 2]
+quesTypeText = {
+    'FirstBless' : 'מהי הברכה הראשונה למקרה זה?',
+    'LastBless' : 'מהי הברכה האחרונה למקרה זה?',
+    'Special' : 'מהי ברכת הראייה למקרה זה?'
+}
 
 #the thing of the question about↓
 TheThing = None
 
 
 
-def ask_first_blessQ():
+def generate_question():
     ques = {}
-    while True:
-        TheThing = random.choice(DS)
-        if hasattr(TheThing, 'FirstBless'):
-            break
-    ques['question'] = quesTypeText[0]
+    TheThing = random.choice(DS)
+    categs = get_cagtegories(TheThing)
+    print(categs)
+    quesType = random.choice(categs)
+    ques['question'] = quesTypeText[quesType]
+    ques['name'] = TheThing['Name']
     ques['img'] = TheThing['img']
-    options = []
-    while len(options) < 3:
-        curo = random.choice(quesTypes)
-        if (not hasattr(curo, 'firstBless')):
-            continue
-        if curo['firstBless'] in options:
-            continue
-        options.append(curo['firstBless'])
+    options = [TheThing[quesType]]
+    while len(options) < 4:
+        curo = random.choice(DS)
+        if (not curo[quesType]):
+            continue;
+        if curo[quesType] in options:
+            continue;
+        options.append(curo[quesType])
 
+    options.remove(TheThing[quesType])
     correct = random.randint(0, len(options))
-    options.insert(correct, TheThing['firstBless'])
-
+    options.insert(correct, TheThing[quesType])
     ques['options'] = options
     ques['correct'] = correct
     return ques
-    
-def generate_question():
 
-    quesType = random.choice(quesTypes)
-
-    if(quesType == quesTypes[0]):
-        return ask_first_blessQ()
-    #elif
+def get_cagtegories(thing):
+    categs = []
+    if 'FirstBless' in thing:
+        categs.append('FirstBless')
+    if 'LastBless' in thing:
+        categs.append('LastBless')
+    if 'Special' in thing:
+        categs.append('Special')
+    return categs
 
 
 if __name__ == '__main__':
