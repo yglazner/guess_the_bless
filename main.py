@@ -1,3 +1,5 @@
+#encoding=utf8
+from __future__ import unicode_literals
 '''
 Created on Jul 13, 2017
 
@@ -11,6 +13,10 @@ from kivy.uix.label import Label
 from kivy.lang import Builder
 from kivy.core.audio import SoundLoader
 
+import sys
+
+py3 = sys.version[0] == '3'
+print (py3, sys.version)
 __version__ = '1.0.0'
 
 image_folder = 'Img'
@@ -19,8 +25,12 @@ sm = None
 
 TOTAL_LEVELS = 15
 
-with open('ui.kv', encoding='utf8') as f:
-    s = f.read()
+if py3:
+    with open('ui.kv', encoding='utf8') as f:
+        s = f.read()
+else:
+    with open('ui.kv') as f:
+        s = f.read()
 
 Builder.load_string(s)
 
@@ -39,10 +49,13 @@ class FakeGen(object):
     def next_question(self):
         
         return {
-                'image': "egg.png",
+                'image': u"egg.png",
                 
-                "question": "מה מברכים לפני שמתים?",
-                "answers": ['ברכה אחרונה', 'שהכל', 'מחיה המתים', 'ברוך דיין האמת'],
+                "question": u"מה מברכים לפני שמתים?",
+                "answers": [u'ברכה אחרונה'
+                            , u'שהכל'
+                            , u'מחיה המתים'
+                            , u'ברוך דיין האמת'],
                 "answers_images": ['pop.png', ],
                 "correct_answer": 0,  
                }
