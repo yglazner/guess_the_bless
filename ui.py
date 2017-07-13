@@ -73,7 +73,7 @@ data = """
                     rtext: root.question['question']
                 Image:
                     id: q_img
-                    source: root.question.get('image', '') and "Img/%s" % root.question['image']
+                    source: "Img/%s" % (root.question['image'] if root.question.get('image') else 'question_mark.png')
                     size_hint: 1.0, 0.8
                     allow_strech: True
                     keep_ratio: True
