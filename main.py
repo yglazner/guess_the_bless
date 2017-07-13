@@ -11,6 +11,8 @@ from kivy.uix.label import Label
 from kivy.lang import Builder
 
 
+image_folder = 'Img'
+
 sm = None
 
 TOTAL_LEVELS = 15
@@ -35,9 +37,11 @@ class FakeGen(object):
     def next_question(self):
         
         return {
-                'image': "pizza.png",
+                'image': "egg.png",
+                
                 "question": "מה מברכים לפני שמתים?",
                 "answers": ['ברכה אחרונה', 'שהכל', 'מחיה המתים', 'ברוך דיין האמת'],
+                "answers_images": ['pop.png', ],
                 "correct_answer": 0,  
                }
 try:
@@ -72,7 +76,7 @@ class GameScreen(Screen):
             
         self.question = self.g.next_question()
         self.set_level(self.level + 1)
-    
+        print(self.ids.q_img.source)
     def on_enter(self, *args):
         self.level = 0
         

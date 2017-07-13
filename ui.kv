@@ -21,12 +21,15 @@
     font_name: default_font_name
     font_size:  default_font_size
     
-<BetterLabel@Label>:
+<BetterLabel@Label>:    
     rtext: "some_default"
     text: reverse_text(self.rtext)
     font_name: default_font_name
     font_size:  default_font_size
-
+    
+<BetterImage@Image>:
+    size: (0,0) if not self.source else self.size
+        
 
 <MainScreen>:
     BoxLayout:
@@ -48,8 +51,16 @@
         BoxLayout:
             orientation:  'horizontal'
            
-            BetterLabel:
-                rtext: root.question['question']
+            BoxLayout:
+                orientation:  'vertical'
+                BetterLabel:
+                    
+                    rtext: root.question['question']
+                Image:
+                    id: q_img
+                    source: root.question.get('image', '') and "Img/%s" % root.question['image']
+                    size_hint: (0,0) if not self.source else (1, 0.8)
+                
             GridLayout:
                 size_hint: 0.1, 1.0
                 id: levels
