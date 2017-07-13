@@ -126,14 +126,14 @@ class GameScreen(Screen):
     
 
     def show_success(self):
-        success_imgs = ['Img/memes/success%s.jpg' % i for i in '123']
+        success_imgs = ['Img/memes/success%s.jpg' % i for i in range(1, 8)]
         pop = ImagePop(random.choice(success_imgs))
         play_success()
         pop.open()
     
     
     def show_fail(self):
-        fail_imgs = ['Img/memes/fail%s.jpg' % i for i in '123']
+        fail_imgs = ['Img/memes/fail%s.jpg' % i for i in range(1, 8)]
         pop = ImagePop(random.choice(fail_imgs))
         fail_snd.play()
         pop.open()
