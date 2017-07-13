@@ -1,4 +1,4 @@
-from DataSet import DS
+from ds import DS
 import random
 
 quesTypeText = {
@@ -16,11 +16,10 @@ def generate_question():
     ques = {}
     TheThing = random.choice(DS)
     categs = get_cagtegories(TheThing)
-    print(categs)
     quesType = random.choice(categs)
     ques['question'] = quesTypeText[quesType]
     ques['name'] = TheThing['Name']
-    ques['img'] = TheThing['img']
+    ques['img'] = TheThing['Picture']
     options = [TheThing[quesType]]
     while len(options) < 4:
         curo = random.choice(DS)
@@ -39,11 +38,11 @@ def generate_question():
 
 def get_cagtegories(thing):
     categs = []
-    if 'FirstBless' in thing:
+    if thing['FirstBless']:
         categs.append('FirstBless')
-    if 'LastBless' in thing:
+    if thing['LastBless']:
         categs.append('LastBless')
-    if 'Special' in thing:
+    if thing['Special']:
         categs.append('Special')
     return categs
 
