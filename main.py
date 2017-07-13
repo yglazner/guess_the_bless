@@ -14,6 +14,7 @@ from kivy.lang import Builder
 #from kivy.core.audio import SoundLoader
 
 import sys
+import ui
 
 py3 = sys.version[0] == '3'
 print (py3, sys.version)
@@ -32,7 +33,7 @@ else:
     with open('ui.kv') as f:
         s = f.read()
 
-Builder.load_string(s)
+
 
 class LevelBlock(Label):
     level_no = NumericProperty(0)
@@ -124,7 +125,7 @@ class GuessTheBless(App):
 
     def build(self):
         global sm
-        
+        Builder.load_string(ui.data)
         sm = ScreenManager()
         
         sm.add_widget(MainScreen())
