@@ -19,7 +19,7 @@ def generate_question():
     quesType = random.choice(categs)
     ques['question'] = quesTypeText[quesType] % TheThing['Name']
     ques['name'] = TheThing['Name']
-    ques['img'] = TheThing['Picture']
+    ques['image'] = TheThing['Picture']
     options = [TheThing[quesType]]
     while len(options) < 4:
         curo = random.choice(DS)

@@ -93,9 +93,10 @@ class GameScreen(Screen):
         self.question = generate_question()
         self.set_level(self.level + 1)
         #self.applause_sound.play()
-        print(self.ids.q_img.source)
         
-    def on_enter(self, *args):
+        
+    def on_pre_enter(self, *args):
+        
         self.level = 0
         
         self.next_question()
