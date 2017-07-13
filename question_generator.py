@@ -1,4 +1,5 @@
 #encoding=utf8
+from __future__ import unicode_literals
 from ds import DS
 import random
 

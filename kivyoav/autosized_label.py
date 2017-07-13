@@ -19,7 +19,7 @@ class AutoSizedLabel(Label):
     def __init__(self, **kw):
         self.old_stuff = []
         self.co_list = list()
-        super().__init__(**kw)
+        super(AutoSizedLabel, self).__init__(**kw)
         
         
     def _calc_font_size(self):
