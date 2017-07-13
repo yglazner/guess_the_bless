@@ -61,9 +61,9 @@ class FakeGen(object):
                 "correct_answer": 0,  
                }
 try:
-    from question_gen import QG
+    from question_generator import generate_question
 except ImportError:
-    QG = FakeGen
+    generate_question = FakeGen().next_question
     
 class GameScreen(Screen):
     
@@ -76,8 +76,7 @@ class GameScreen(Screen):
         self.level = -1
         for i in range(TOTAL_LEVELS, 0, -1):
             self.ids.levels.add_widget(LevelBlock(i, self.level))
-            
-        self.g = QG()
+
         self.next_question()
      
     def set_level(self, level):
@@ -91,17 +90,18 @@ class GameScreen(Screen):
             #win, make noise and animation
             sm.current = 'menu'
             
-        self.question = self.g.next_question()
+        self.question = generate_question()
         self.set_level(self.level + 1)
         #self.applause_sound.play()
         print(self.ids.q_img.source)
+        
     def on_enter(self, *args):
         self.level = 0
         
         self.next_question()
     
     def answer(self, num):
-        if num == self.question['correct_answer']:
+        if num == self.question['correct']:
             self.next_question()
         else:
             sm.current = 'menu'

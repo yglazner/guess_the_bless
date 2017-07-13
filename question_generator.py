@@ -2,9 +2,9 @@ from ds import DS
 import random
 
 quesTypeText = {
-    'FirstBless' : 'מהי הברכה הראשונה למקרה זה?',
-    'LastBless' : 'מהי הברכה האחרונה למקרה זה?',
-    'Special' : 'מהי ברכת הראייה למקרה זה?'
+    'FirstBless' : 'מהי הברכה הראשונה על %s?',
+    'LastBless' : 'מהי הברכה האחרונה על %s?',
+    'Special' : 'מה מברכים על %s?'
 }
 
 #the thing of the question about↓
@@ -17,7 +17,7 @@ def generate_question():
     TheThing = random.choice(DS)
     categs = get_cagtegories(TheThing)
     quesType = random.choice(categs)
-    ques['question'] = quesTypeText[quesType]
+    ques['question'] = quesTypeText[quesType] % TheThing['Name']
     ques['name'] = TheThing['Name']
     ques['img'] = TheThing['Picture']
     options = [TheThing[quesType]]
@@ -32,7 +32,7 @@ def generate_question():
     options.remove(TheThing[quesType])
     correct = random.randint(0, len(options))
     options.insert(correct, TheThing[quesType])
-    ques['options'] = options
+    ques['answers'] = options
     ques['correct'] = correct
     return ques
 
