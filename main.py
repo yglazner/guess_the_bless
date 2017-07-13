@@ -18,6 +18,7 @@ import sys
 import ui
 import random
 from kivy.uix.popup import Popup
+from kivy.core.audio import SoundLoader
 
 py3 = sys.version[0] == '3'
 print (py3, sys.version)
@@ -78,6 +79,9 @@ class ImagePop(Popup):
         self.source = choice
         self.content.bind(on_press=self.dismiss)
 
+success_snd = SoundLoader.load('Sounds/success.wav')
+fail_snd = SoundLoader.load('Sounds/fail.wav')
+
 class GameScreen(Screen):
     
     level = NumericProperty(1)
@@ -118,12 +122,14 @@ class GameScreen(Screen):
     def show_success(self):
         success_imgs = ['Img/memes/success%s.jpg' % i for i in '123']
         pop = ImagePop(random.choice(success_imgs))
+        success_snd.play()
         pop.open()
     
     
     def show_fail(self):
         fail_imgs = ['Img/memes/fail%s.jpg' % i for i in '123']
         pop = ImagePop(random.choice(fail_imgs))
+        fail_snd.play()
         pop.open()
     
     def answer(self, num):
