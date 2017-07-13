@@ -43,6 +43,7 @@ def generate_question():
     #elif
 
 
-    
+if __name__ == '__main__':
+    print(generate_question())
 
 

@@ -10,6 +10,7 @@ import sys
 from kivy.uix.label import Label
 from kivy.lang import Builder
 
+__version__ = '1.0.0'
 
 image_folder = 'Img'
 
