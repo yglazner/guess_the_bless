@@ -16,6 +16,9 @@ from kivy.lang import Builder
 
 import sys
 import ui
+import random
+from kivy.uix.popup import Popup
+from kivy.core.audio import SoundLoader
 
 py3 = sys.version[0] == '3'
 print (py3, sys.version)
@@ -27,12 +30,12 @@ sm = None
 
 TOTAL_LEVELS = 15
 
-if py3:
-    with open('ui.kv', encoding='utf8') as f:
-        s = f.read()
-else:
-    with open('ui.kv') as f:
-        s = f.read()
+# if py3:
+#     with open('ui.kv', encoding='utf8') as f:
+#         s = f.read()
+# else:
+#     with open('ui.kv') as f:
+#         s = f.read()
 
 
 
@@ -49,7 +52,7 @@ class LevelBlock(AutoSizedLabel):
 
 class FakeGen(object):
     
-    def next_question(self):
+    def generate_question(self):
         
         return {
                 'image': u"egg.png",
@@ -63,10 +66,22 @@ class FakeGen(object):
                 "correct_answer": 0,  
                }
 try:
-    from question_generator import generate_question
+    from question_generator import QGen
 except ImportError:
-    generate_question = FakeGen().next_question
+    QGen = FakeGen
     
+
+class ImagePop(Popup):
+    source = StringProperty('')
+    def __init__(self, choice, **kw):
+        
+        super(ImagePop, self).__init__( **kw)
+        self.source = choice
+        self.content.bind(on_press=self.dismiss)
+
+success_snd = SoundLoader.load('Sounds/success.wav')
+fail_snd = SoundLoader.load('Sounds/fail.wav')
+
 class GameScreen(Screen):
     
     level = NumericProperty(1)
@@ -78,7 +93,7 @@ class GameScreen(Screen):
         self.level = -1
         for i in range(TOTAL_LEVELS, 0, -1):
             self.ids.levels.add_widget(LevelBlock(i, self.level))
-
+        self.g = QGen()
         self.next_question()
      
     def set_level(self, level):
@@ -92,7 +107,7 @@ class GameScreen(Screen):
             #win, make noise and animation
             sm.current = 'menu'
             
-        self.question = generate_question()
+        self.question = self.g.generate_question()
         self.set_level(self.level + 1)
         #self.applause_sound.play()
         
@@ -100,13 +115,29 @@ class GameScreen(Screen):
     def on_pre_enter(self, *args):
         
         self.level = 0
-        
+        self.g = QGen()
         self.next_question()
+    
+
+    def show_success(self):
+        success_imgs = ['Img/memes/success%s.jpg' % i for i in '123']
+        pop = ImagePop(random.choice(success_imgs))
+        success_snd.play()
+        pop.open()
+    
+    
+    def show_fail(self):
+        fail_imgs = ['Img/memes/fail%s.jpg' % i for i in '123']
+        pop = ImagePop(random.choice(fail_imgs))
+        fail_snd.play()
+        pop.open()
     
     def answer(self, num):
         if num == self.question['correct']:
+            self.show_success()
             self.next_question()
         else:
+            self.show_fail()
             sm.current = 'menu'
 
 class MainScreen(Screen):

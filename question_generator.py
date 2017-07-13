@@ -11,7 +11,7 @@ quesTypeText = {
 TheThing = None
 
 
-class Game:
+class QGen:
 
     quesHistory = []
 
@@ -71,7 +71,7 @@ class Game:
 
 
 if __name__ == '__main__':
-    g = Game()
+    g = QGen()
     print(g.generate_question())
 
 
