@@ -4,7 +4,8 @@ import random
 quesTypeText = {
     'FirstBless' : 'מהי הברכה הראשונה על %s?',
     'LastBless' : 'מהי הברכה האחרונה על %s?',
-    'Special' : 'מה מברכים על %s?'
+    'Special' : 'מה מברכים על %s?',
+    'Name' : 'עבור מי מהבאים תברך %s'
 }
 
 #the thing of the question about↓
@@ -21,10 +22,40 @@ class QGen:
     def generate_question(self):
         ques = {}
         the_thing = self.get_the_thing()
+        quesStyle = random.random()
+        if quesStyle < 0.17:
+            ques = self.ask_what_to_bless(the_thing)
+        else:
+            ques = self.ask_what_the_bless(the_thing)
+        return ques
+
+    def ask_what_the_bless(self, the_thing):
+        ques = {}
+        categs = self.get_cagtegories(the_thing)
+        ques_type = random.choice(categs)
+        ques['question'] = quesTypeText['Name'] % the_thing[ques_type]
+
+        options = [the_thing]
+        while len(options) < 4:
+            curo = random.choice(DS)
+            if (curo[ques_type] == the_thing[ques_type]):
+                continue
+            if curo in options:
+                continue
+            options.append(curo)
+        options.remove(the_thing)
+        correct = random.randint(0, len(options))
+        options.insert(correct, the_thing)
+        ques['answers'] = options
+        ques['correct'] = correct
+        return ques
+
+    def ask_what_to_bless(self, the_thing):
+        ques = {}
         categs = self.get_cagtegories(the_thing)
         ques_type = random.choice(categs)
         ques['question'] = quesTypeText[ques_type] % the_thing['Name']
-        ques['name'] = the_thing['Name']
+        #ques['name'] = the_thing['Name']
         ques['image'] = the_thing['Picture']
         options = [the_thing[ques_type]]
         while len(options) < 4:
