@@ -27,6 +27,9 @@ data = """
 
 <BetterButton@BoxLayout+Button>:
     rtext: "some_default"
+    background_normal: ""
+    background_color: [0.0, 0.2, 0.8, 1]
+    color: 0.0, .1, .1, 1
     BetterLabel:
         rtext: self.parent.rtext
         
@@ -39,13 +42,20 @@ data = """
 <MainScreen>:
     BoxLayout:
         orientation: "vertical"
+        Image:
+            allow_stretch: True
+            keep_ratio: False
+            source: "Img/logo.png"
+            
         BetterButton:
             rtext: "התחל" 
             on_press: root.start()
+            background_color: [0.0, 0.8, 0.1, 1]
         
         BetterButton:
             rtext: "צא בחוץ" 
             on_press: root.exit()
+            background_color: [0.8, 0.2, 0.2, 1]
             
             
 <GameScreen>:

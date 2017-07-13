@@ -79,8 +79,14 @@ class ImagePop(Popup):
         self.source = choice
         self.content.bind(on_press=self.dismiss)
 
-success_snd = SoundLoader.load('Sounds/success.wav')
+success_snds = [SoundLoader.load('Sounds/success%d.wav' % i)
+                for i in range(1, 3)]
 fail_snd = SoundLoader.load('Sounds/fail.wav')
+
+
+def play_success():
+    random.choice(success_snds).play()
+
 
 class GameScreen(Screen):
     
@@ -122,7 +128,7 @@ class GameScreen(Screen):
     def show_success(self):
         success_imgs = ['Img/memes/success%s.jpg' % i for i in '123']
         pop = ImagePop(random.choice(success_imgs))
-        success_snd.play()
+        play_success()
         pop.open()
     
     
