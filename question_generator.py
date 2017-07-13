@@ -11,43 +11,62 @@ quesTypeText = {
 TheThing = None
 
 
+class Game:
 
-def generate_question():
-    ques = {}
-    TheThing = random.choice(DS)
-    categs = get_cagtegories(TheThing)
-    quesType = random.choice(categs)
-    ques['question'] = quesTypeText[quesType] % TheThing['Name']
-    ques['name'] = TheThing['Name']
-    ques['image'] = TheThing['Picture']
-    options = [TheThing[quesType]]
-    while len(options) < 4:
-        curo = random.choice(DS)
-        if (not curo[quesType]):
-            continue;
-        if curo[quesType] in options:
-            continue;
-        options.append(curo[quesType])
+    quesHistory = []
 
-    options.remove(TheThing[quesType])
-    correct = random.randint(0, len(options))
-    options.insert(correct, TheThing[quesType])
-    ques['answers'] = options
-    ques['correct'] = correct
-    return ques
+    def __init__(self):
+        quesHistory = []
 
-def get_cagtegories(thing):
-    categs = []
-    if thing['FirstBless']:
-        categs.append('FirstBless')
-    if thing['LastBless']:
-        categs.append('LastBless')
-    if thing['Special']:
-        categs.append('Special')
-    return categs
+    def generate_question(self):
+        ques = {}
+        the_thing = self.get_the_thing()
+        categs = self.get_cagtegories(the_thing)
+        ques_type = random.choice(categs)
+        ques['question'] = quesTypeText[ques_type] % the_thing['Name']
+        ques['name'] = the_thing['Name']
+        ques['image'] = the_thing['Picture']
+        options = [the_thing[ques_type]]
+        while len(options) < 4:
+            curo = random.choice(DS)
+            if (not curo[ques_type]):
+                continue;
+            if curo[ques_type] in options:
+                continue;
+            options.append(curo[ques_type])
+
+        options.remove(the_thing[ques_type])
+        correct = random.randint(0, len(options))
+        options.insert(correct, the_thing[ques_type])
+        ques['answers'] = options
+        ques['correct'] = correct
+
+        self.quesHistory.append(the_thing)
+
+        return ques
+
+    def get_the_thing(self):
+        the_thing = None
+        while True:
+            the_thing = random.choice(DS)
+            if(the_thing not in self.quesHistory):
+                break
+        return the_thing
+
+
+    def get_cagtegories(self, thing):
+        categs = []
+        if thing['FirstBless']:
+            categs.append('FirstBless')
+        if thing['LastBless']:
+            categs.append('LastBless')
+        if thing['Special']:
+            categs.append('Special')
+        return categs
 
 
 if __name__ == '__main__':
-    print(generate_question())
+    g = Game()
+    print(g.generate_question())
 
 
