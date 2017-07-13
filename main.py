@@ -79,8 +79,19 @@ class ImagePop(Popup):
         self.source = choice
         self.content.bind(on_press=self.dismiss)
 
-success_snd = SoundLoader.load('Sounds/success.wav')
+success_snds = [SoundLoader.load('Sounds/success%d.wav' % i)
+                for i in range(1, 3)]
 fail_snd = SoundLoader.load('Sounds/fail.wav')
+
+win_snd = SoundLoader.load('Sounds/claps.wav')
+
+def play_success():
+    random.choice(success_snds).play()
+
+
+def play_win():
+    win_snd.play()
+
 
 class GameScreen(Screen):
     
@@ -103,9 +114,6 @@ class GameScreen(Screen):
             
             
     def next_question(self):
-        if self.level >= TOTAL_LEVELS:
-            #win, make noise and animation
-            sm.current = 'menu'
             
         self.question = self.g.generate_question()
         self.set_level(self.level + 1)
@@ -118,22 +126,32 @@ class GameScreen(Screen):
         self.g = QGen()
         self.next_question()
     
+    def show_win(self):
+        win_pic = 'Img/memes/winner.jpg'
+        pop = ImagePop(win_pic)
+        play_win()
+        pop.open()
 
     def show_success(self):
-        success_imgs = ['Img/memes/success%s.jpg' % i for i in '123']
+        success_imgs = ['Img/memes/success%s.jpg' % i for i in range(1, 8)]
         pop = ImagePop(random.choice(success_imgs))
-        success_snd.play()
+        play_success()
         pop.open()
     
     
     def show_fail(self):
-        fail_imgs = ['Img/memes/fail%s.jpg' % i for i in '123']
+        fail_imgs = ['Img/memes/fail%s.jpg' % i for i in range(1, 8)]
         pop = ImagePop(random.choice(fail_imgs))
         fail_snd.play()
         pop.open()
     
     def answer(self, num):
         if num == self.question['correct']:
+            if self.level >= TOTAL_LEVELS:
+                #win, make noise and animation
+                self.show_win()
+                sm.current = 'menu'
+                return
             self.show_success()
             self.next_question()
         else:

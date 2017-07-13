@@ -1,6 +1,9 @@
 #encoding=utf8
 data = """
 #:set default_font_size "30sp"
+#:set ui_color [0.7, 0.4, 0.62]
+#:set btn_color [0.5, 0.6, 0.8, 1]
+#:set block_color [1.0, 0.75, 0.0]
 #:set default_font_name "fonts/VarelaRoundRegular.ttf"
 #:import reverse_text utils.reverse_text
 
@@ -12,7 +15,7 @@ data = """
     
     canvas.before:
         Color:
-            rgb: (0.,0,0) if self.current_level< self.level_no else (0, 0, 0.8)
+            rgb: ui_color if self.current_level< self.level_no else block_color
         Rectangle:
             pos: self.pos
             size: self.size
@@ -27,30 +30,48 @@ data = """
 
 <BetterButton@BoxLayout+Button>:
     rtext: "some_default"
+    background_normal: ""
+    background_color: btn_color
+    color: 0.0, .1, .1, 1
     BetterLabel:
         rtext: self.parent.rtext
-        
 
-    
+
 <BetterImage@Image>:
     size: (0,0) if not self.source else self.size
         
 
 <MainScreen>:
+
     BoxLayout:
         orientation: "vertical"
+        Image:
+            allow_stretch: True
+            keep_ratio: False
+            source: "Img/logo.png"
+            
         BetterButton:
             rtext: "התחל" 
             on_press: root.start()
+            background_color: [0.0, 0.8, 0.1, 1]
         
         BetterButton:
             rtext: "צא בחוץ" 
             on_press: root.exit()
+            background_color: [0.8, 0.2, 0.2, 1]
             
             
 <GameScreen>:
     level: 1
     question: {'question': '', 'answers': ['','','',''], }
+    
+    canvas.before:
+        Color:
+            rgb: ui_color
+        Rectangle:
+            pos: self.pos
+            size: self.size
+            
     BoxLayout:
         orientation: 'vertical'
         BoxLayout:
@@ -63,7 +84,7 @@ data = """
                     rtext: root.question['question']
                 Image:
                     id: q_img
-                    source: root.question.get('image', '') and "Img/%s" % root.question['image']
+                    source: "Img/%s" % (root.question['image'] if root.question.get('image') else 'question_mark.png')
                     size_hint: 1.0, 0.8
                     allow_strech: True
                     keep_ratio: True
@@ -72,8 +93,11 @@ data = """
                 size_hint: 0.1, 1.0
                 id: levels
                 cols: 1
+                spacing: [10, 0]
         GridLayout:
             cols: 2
+            padding: [10, 10, 10, 10]
+            spacing: [10, 10]
             BetterButton:
                 rtext: root.question['answers'][0]
                 on_press: root.answer(0)
