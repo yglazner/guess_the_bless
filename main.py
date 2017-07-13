@@ -11,6 +11,7 @@ from kivy.uix.label import Label
 from kivy.lang import Builder
 from kivy.core.audio import SoundLoader
 
+__version__ = '1.0.0'
 
 image_folder = 'Img'
 
