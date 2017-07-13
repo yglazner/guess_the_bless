@@ -8,9 +8,10 @@ quesTypes = [0, 1, 2]
 #the thing of the question about↓
 TheThing = None
 
-ques = {}
+
 
 def ask_first_blessQ():
+    ques = {}
     while True:
         TheThing = random.choice(DS)
         if hasattr(TheThing, 'FirstBless'):
@@ -31,16 +32,17 @@ def ask_first_blessQ():
 
     ques['options'] = options
     ques['correct'] = correct
-
+    return ques
+    
 def generate_question():
 
     quesType = random.choice(quesTypes)
 
     if(quesType == quesTypes[0]):
-        ask_first_blessQ()
+        return ask_first_blessQ()
     #elif
 
 
-    return ques
+    
 
 
