@@ -87,6 +87,20 @@ data = """
                 rtext: root.question['answers'][3]
                 on_press: root.answer(3)
         
-
+<ImagePop>:
+    id: pop
+    source: ""
+    title: ""
+    separator_height: 0.0
+    
+    Button:
+        on_press: pop.dismiss()
+        size_hint: 1.0, 1.0
+        Image:
+            size: self.parent.size
+            pos: self.parent.pos
+            source: "%s" % pop.source
+            allow_stretch: True
+            keep_ratio: False
 
 """

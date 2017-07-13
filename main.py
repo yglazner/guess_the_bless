@@ -16,6 +16,8 @@ from kivy.lang import Builder
 
 import sys
 import ui
+import random
+from kivy.uix.popup import Popup
 
 py3 = sys.version[0] == '3'
 print (py3, sys.version)
@@ -67,6 +69,15 @@ try:
 except ImportError:
     QGen = FakeGen
     
+
+class ImagePop(Popup):
+    source = StringProperty('')
+    def __init__(self, choice, **kw):
+        
+        super(ImagePop, self).__init__( **kw)
+        self.source = choice
+        self.content.bind(on_press=self.dismiss)
+
 class GameScreen(Screen):
     
     level = NumericProperty(1)
@@ -103,10 +114,24 @@ class GameScreen(Screen):
         self.g = QGen()
         self.next_question()
     
+
+    def show_success(self):
+        success_imgs = ['Img/memes/success%s.jpg' % i for i in '123']
+        pop = ImagePop(random.choice(success_imgs))
+        pop.open()
+    
+    
+    def show_fail(self):
+        fail_imgs = ['Img/memes/fail%s.jpg' % i for i in '123']
+        pop = ImagePop(random.choice(fail_imgs))
+        pop.open()
+    
     def answer(self, num):
         if num == self.question['correct']:
+            self.show_success()
             self.next_question()
         else:
+            self.show_fail()
             sm.current = 'menu'
 
 class MainScreen(Screen):
