@@ -83,10 +83,17 @@ data = """
                     size_hint: 1.0, 0.2
                     rtext: root.question['question']
                 Image:
+                    canvas.before:
+                        Color:
+                            rgb: 1, 0 ,0
+                        Rectangle:
+                            pos: self.pos
+                            size: self.size
+    
                     id: q_img
                     source: "Img/%s" % (root.question['image'] if root.question.get('image') else 'question_mark.png')
                     size_hint: 1.0, 0.8
-                    allow_strech: True
+                    allow_stretch: True
                     keep_ratio: True
                 
             GridLayout:
@@ -118,13 +125,17 @@ data = """
     separator_height: 0.0
     
     Button:
-        on_press: pop.dismiss()
+        id: b
         size_hint: 1.0, 1.0
+        on_press: pop.dismiss()
+        background_color: btn_color
         Image:
-            size: self.parent.size
-            pos: self.parent.pos
-            source: "%s" % pop.source
             allow_stretch: True
-            keep_ratio: False
+            size: b.size
+            
+            source: "%s" % pop.source
+            
+            keep_ratio: True
+            center: b.center
 
 """
