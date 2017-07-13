@@ -17,17 +17,20 @@ data = """
             pos: self.pos
             size: self.size
 
-<BetterButton@Button>:
-    rtext: "some_default"
-    text: reverse_text(self.rtext)
-    font_name: default_font_name
-    font_size:  default_font_size
     
-<BetterLabel@Label>:    
+<BetterLabel@AutoSizedLabel>:    
     rtext: "some_default"
     text: reverse_text(self.rtext)
     font_name: default_font_name
-    font_size:  default_font_size
+    #font_size:  default_font_size
+    ratio: 0.6
+
+<BetterButton@BoxLayout+Button>:
+    rtext: "some_default"
+    BetterLabel:
+        rtext: self.parent.rtext
+        
+
     
 <BetterImage@Image>:
     size: (0,0) if not self.source else self.size
@@ -56,12 +59,14 @@ data = """
             BoxLayout:
                 orientation:  'vertical'
                 BetterLabel:
-                    
+                    size_hint: 1.0, 0.2
                     rtext: root.question['question']
                 Image:
                     id: q_img
                     source: root.question.get('image', '') and "Img/%s" % root.question['image']
-                    size_hint: (0,0) if not self.source else (1, 0.8)
+                    size_hint: 1.0, 0.8
+                    allow_strech: True
+                    keep_ratio: True
                 
             GridLayout:
                 size_hint: 0.1, 1.0

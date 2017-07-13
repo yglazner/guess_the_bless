@@ -5,6 +5,7 @@ Created on Jul 13, 2017
 
 @author: yglazner
 '''
+from kivyoav.autosized_label import AutoSizedLabel
 from kivy.app import App
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.properties import *
@@ -35,11 +36,12 @@ else:
 
 
 
-class LevelBlock(Label):
+class LevelBlock(AutoSizedLabel):
     level_no = NumericProperty(0)
     current_level = NumericProperty(2)
     def __init__(self, level_no, current_level, **kw):
         super(LevelBlock, self).__init__(**kw)
+        self.ratio = 0.99
         self.text = "%s" % level_no
         self.level_no = level_no
         self.current_level = current_level
