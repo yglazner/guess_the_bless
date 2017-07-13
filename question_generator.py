@@ -26,9 +26,9 @@ class QGen:
         the_thing = self.get_the_thing()
         quesStyle = random.random()
         if quesStyle < 0.17:
-            ques = self.ask_what_to_bless(the_thing)
-        else:
             ques = self.ask_what_the_bless(the_thing)
+        else:
+            ques = self.ask_what_to_bless(the_thing)
         return ques
 
     def ask_what_the_bless(self, the_thing):
@@ -37,17 +37,17 @@ class QGen:
         ques_type = random.choice(categs)
         ques['question'] = quesTypeText['Name'] % the_thing[ques_type]
 
-        options = [the_thing]
+        options = [the_thing['Name']]
         while len(options) < 4:
             curo = random.choice(DS)
             if (curo[ques_type] == the_thing[ques_type]):
                 continue
-            if curo in options:
+            if curo['Name'] in options:
                 continue
-            options.append(curo)
-        options.remove(the_thing)
+            options.append(curo['Name'])
+        options.remove(the_thing['Name'])
         correct = random.randint(0, len(options))
-        options.insert(correct, the_thing)
+        options.insert(correct, the_thing['Name'])
         ques['answers'] = options
         ques['correct'] = correct
         return ques
