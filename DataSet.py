@@ -13,7 +13,7 @@ for s in wb.sheets():
         BlessObj['FirstBless'] = s.cell(row,1).value
         BlessObj['LastBless'] = s.cell(row, 2).value
         BlessObj['Category'] = s.cell(row,3).value
-        BlessObj['Picture'] = 0
+        BlessObj['img'] = 0
         DS.append(BlessObj)
 
 #print (DS[0])
