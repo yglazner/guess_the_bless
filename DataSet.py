@@ -12,13 +12,8 @@ for s in wb.sheets():
         BlessObj['Name'] = s.cell(row,0).value
         BlessObj['FirstBless'] = s.cell(row,1).value
         BlessObj['LastBless'] = s.cell(row, 2).value
-<<<<<<< HEAD
-        BlessObj['Category'] = s.cell(row,3).value
-        BlessObj['img'] = 0
-=======
         BlessObj['Special'] = s.cell(row,3).value
         BlessObj['Picture'] = s.cell(row,4).value
->>>>>>> 1646d47c61b1e6e29edac6f56b9716111a597c1c
         DS.append(BlessObj)
 
 fi.write("DS = [")
