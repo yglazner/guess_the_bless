@@ -1,3 +1,4 @@
+#encoding=utf8
 from ds import DS
 import random
 
