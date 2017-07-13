@@ -29,11 +29,16 @@ class Game:
         options = [the_thing[ques_type]]
         while len(options) < 4:
             curo = random.choice(DS)
-            if (not curo[ques_type]):
+            to_append = curo[ques_type]
+            if (not to_append):
+                if ( 0.5 < random.random() < 0.55):
+                    to_append = random.choice(self.get_cagtegories(curo))
                 continue;
-            if curo[ques_type] in options:
+            if to_append in options:
                 continue;
-            options.append(curo[ques_type])
+            if to_append == None :
+                to_append = curo[ques_type]
+            options.append(to_append)
 
         options.remove(the_thing[ques_type])
         correct = random.randint(0, len(options))
