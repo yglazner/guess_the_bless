@@ -1,4 +1,4 @@
-frםm TriVeYa.dataset import DS
+from DataSet import DS
 import random
 
 quesTypeText = ['מהי הברכה הראשונה למקרה זה?',
@@ -10,18 +10,7 @@ TheThing = None
 
 ques = {}
 
-def randomQuestion():
-    i = random.randint()
-    return DS[i]
-
-def randomByQues(ques):
-    matching  = []
-    for(q in DS):
-        if hasattr(q, ques):
-            matching.append(q)
-
-
-def askFirstBlessQ():
+def ask_first_blessQ():
     while True:
         TheThing = random.choice(DS)
         if hasattr(TheThing, 'FirstBless'):
@@ -43,12 +32,12 @@ def askFirstBlessQ():
     ques['options'] = options
     ques['correct'] = correct
 
-def generateQuestion():
+def generate_question():
 
     quesType = random.choice(quesTypes)
 
     if(quesType == quesTypes[0]):
-        askFirstBlessQ()
+        ask_first_blessQ()
     #elif
 
 
