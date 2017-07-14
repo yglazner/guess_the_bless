@@ -80,12 +80,13 @@ data = """
             BoxLayout:
                 orientation:  'vertical'
                 BetterLabel:
-                    size_hint: 1.0, 0.2
+                    size_hint: 1.0, 0.25
+                    ratio:0.95
                     rtext: root.question['question']
                 Image:    
                     id: q_img
                     source: "Img/%s" % (root.question['image'] if root.question.get('image') else 'question_mark.png')
-                    size_hint: 1.0, 0.8
+                    size_hint: 1.0, 0.75
                     allow_stretch: True
                     keep_ratio: True
                 
