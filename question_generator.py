@@ -3,6 +3,10 @@ from __future__ import unicode_literals
 from ds import DS
 import random
 
+for obj in DS:
+    for k in obj:
+        obj[k] = obj[k].strip(' ')
+
 quesTypeText = {
     'FirstBless' : 'מהי הברכה הראשונה על %s?',
     'LastBless' : 'מהי הברכה האחרונה על %s?',
