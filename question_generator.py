@@ -11,7 +11,7 @@ quesTypeText = {
     'FirstBless' : 'מהי הברכה הראשונה על %s?',
     'LastBless' : 'מהי הברכה האחרונה על %s?',
     'Special' : 'מה מברכים על %s?',
-    'Name' : 'עבור מי מהבאים תברך %s'
+    'Name' : 'עבור מי מהבאים תברך %s?'
 }
 
 #the thing of the question about↓
