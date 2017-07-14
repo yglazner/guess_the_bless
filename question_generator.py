@@ -12,7 +12,7 @@ quesTypeText = {
     'LastBless' : 'מהי הברכה האחרונה על %s?',
     'Special' : 'מה מברכים על %s?',
     'Name' : 'עבור מי מהבאים תברך %s?',
-    'Unusual' : 'מי מהבאים יוצא דופן?'
+    #'Unusual' : 'מי מהבאים יוצא דופן?'
 }
 
 #the thing of the question about↓
@@ -32,8 +32,8 @@ class QGen:
         quesStyle = random.random()
         if quesStyle < 0.17:
             ques = self.ask_what_the_bless(the_thing)
-        elif (0.17<= quesStyle< 0.33) & (not the_thing['Special']):
-            ques = self.ask_unusual(the_thing)
+        #elif (0.17<= quesStyle< 0.33) & (not the_thing['Special']):
+        #    ques = self.ask_unusual(the_thing)
         else:
             ques = self.ask_what_to_bless(the_thing)
         return ques

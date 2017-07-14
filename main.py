@@ -22,7 +22,7 @@ from kivy.core.audio import SoundLoader
 
 py3 = sys.version[0] == '3'
 print (py3, sys.version)
-__version__ = '1.0.0'
+__version__ = '1.0.1'
 
 image_folder = 'Img'
 
@@ -39,11 +39,12 @@ TOTAL_LEVELS = 15
 
 
 
-class LevelBlock(AutoSizedLabel):
+class LevelBlock(Label):
     level_no = NumericProperty(0)
     current_level = NumericProperty(2)
     def __init__(self, level_no, current_level, **kw):
         super(LevelBlock, self).__init__(**kw)
+        self.font_size = "20sp"
         self.ratio = 0.99
         self.text = "%s" % level_no
         self.level_no = level_no
