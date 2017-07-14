@@ -82,14 +82,7 @@ data = """
                 BetterLabel:
                     size_hint: 1.0, 0.2
                     rtext: root.question['question']
-                Image:
-                    canvas.before:
-                        Color:
-                            rgb: 1, 0 ,0
-                        Rectangle:
-                            pos: self.pos
-                            size: self.size
-    
+                Image:    
                     id: q_img
                     source: "Img/%s" % (root.question['image'] if root.question.get('image') else 'question_mark.png')
                     size_hint: 1.0, 0.8
