@@ -46,9 +46,16 @@ data = """
     BoxLayout:
         orientation: "vertical"
         Image:
+            canvas.before:
+                Color:
+                    rgb: 1,1,1
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+            
             allow_stretch: True
-            keep_ratio: False
-            source: "Img/logo.png"
+            keep_ratio: True
+            source: "Img/logo_credits.png"
             
         BetterButton:
             rtext: "התחל" 
