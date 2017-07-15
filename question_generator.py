@@ -5,7 +5,18 @@ import random
 
 for obj in DS:
     for k in obj:
-        obj[k] = obj[k].strip(' ')
+        obj[k] = obj[k].strip()    
+# f = set()
+# l = set()
+# s = set()
+#     
+# for obj in DS:
+#     for n, k in zip([f,l,s], ['FirstBless', 'LastBless', 'Special']):
+#         n.add(obj[k])
+# 
+# print(f)
+# print(l)
+# print(s)
 
 quesTypeText = {
     'FirstBless' : 'מהי הברכה הראשונה על %s?',
@@ -157,6 +168,9 @@ class QGen:
 
 if __name__ == '__main__':
     g = QGen()
-    print(g.generate_question())
+    q = g.generate_question()
+    print(q)
+    print(q['question'])
+    print(q['answers'][q['correct']])
 
 
