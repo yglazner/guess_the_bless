@@ -40,15 +40,22 @@ class QGen:
     def generate_question(self):
         ques = {}
         the_thing = self.get_the_thing()
-        quesStyle = random.random()
-        if quesStyle < 0.17:
+        ques_style = random.random()
+        if ques_style < 0.17:
             ques = self.ask_what_the_bless(the_thing)
-        #elif (0.17<= quesStyle< 0.33) & (not the_thing['Special']):
-        #    ques = self.ask_unusual(the_thing)
+        elif (ques_style< 0.27) & (not the_thing['Special']):
+            ques = self.ask_unusual(the_thing)
         else:
             ques = self.ask_what_to_bless(the_thing)
         return ques
 
+
+    def get_currect_and_shuffle(self, options):
+        correct = options[0]
+        random.shuffle(options)
+        return options.index(correct)
+    
+    
     def ask_what_the_bless(self, the_thing):
         ques = {}
         categs = self.get_cagtegories(the_thing)
@@ -63,9 +70,9 @@ class QGen:
             if curo['Name'] in options:
                 continue
             options.append(curo['Name'])
-        options.remove(the_thing['Name'])
-        correct = random.randint(0, len(options))
-        options.insert(correct, the_thing['Name'])
+            
+        correct = self.get_currect_and_shuffle(options)
+      
         ques['answers'] = options
         ques['correct'] = correct
         self.quesHistory.append(the_thing)
@@ -105,9 +112,7 @@ class QGen:
             elif (curo['FirstBless'] == the_diferent['FirstBless']) & (curo['LastBless'] == the_diferent['LastBless']):
                 options.append(curo['Name'])
 
-        options.remove(the_thing['Name'])
-        correct = random.randint(0, len(options))
-        options.insert(correct, the_thing['Name'])
+        correct = self.get_currect_and_shuffle(options)
         ques['answers'] = options
         ques['correct'] = correct
 
@@ -136,9 +141,7 @@ class QGen:
                 to_append = curo[ques_type]
             options.append(to_append)
 
-        options.remove(the_thing[ques_type])
-        correct = random.randint(0, len(options))
-        options.insert(correct, the_thing[ques_type])
+        correct = self.get_currect_and_shuffle(options)
         ques['answers'] = options
         ques['correct'] = correct
 
