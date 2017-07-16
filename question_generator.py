@@ -32,10 +32,10 @@ TheThing = None
 
 class QGen:
 
-    quesHistory = []
+    
 
     def __init__(self):
-        quesHistory = []
+        self.unused_items = DS.copy()
 
     def generate_question(self):
         ques = {}
@@ -75,7 +75,7 @@ class QGen:
       
         ques['answers'] = options
         ques['correct'] = correct
-        self.quesHistory.append(the_thing)
+        
 
         return ques
 
@@ -122,7 +122,7 @@ class QGen:
         ques['answers'] = options
         ques['correct'] = correct
 
-        self.quesHistory.append(the_thing)
+        
 
         return  ques
 
@@ -151,16 +151,14 @@ class QGen:
         ques['answers'] = options
         ques['correct'] = correct
 
-        self.quesHistory.append(the_thing)
+        
 
         return ques
 
     def get_the_thing(self):
-        the_thing = None
-        while True:
-            the_thing = random.choice(DS)
-            if(the_thing not in self.quesHistory):
-                break
+        the_thing = random.choice(self.unused_items)
+        self.unused_items.remove(the_thing)
+
         return the_thing
 
 
@@ -182,4 +180,8 @@ if __name__ == '__main__':
     print(q['question'])
     print(q['answers'][q['correct']])
 
-
+    for _ in range(500):
+        q = QGen()
+        for _ in range(15):
+            q.generate_question()
+    print('bye bye')
