@@ -43,8 +43,8 @@ class QGen:
         ques_style = random.random()
         if ques_style < 0.17:
             ques = self.ask_what_the_bless(the_thing)
-        elif (ques_style< 0.27) & (not the_thing['Special']):
-            ques = self.ask_unusual(the_thing)
+        #elif (ques_style< 0.27) & (not the_thing['Special']):
+        #    ques = self.ask_unusual(the_thing)
         else:
             ques = self.ask_what_to_bless(the_thing)
         return ques
