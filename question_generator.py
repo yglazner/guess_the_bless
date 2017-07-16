@@ -132,7 +132,7 @@ class QGen:
             curo = random.choice(DS)
             to_append = curo[ques_type]
             if (not to_append):
-                if ( 0.5 < random.random() < 0.55):
+                if ( 0.5 < random.random() < 0.525):
                     to_append = random.choice(self.get_cagtegories(curo))
                 continue;
             if to_append in options:
