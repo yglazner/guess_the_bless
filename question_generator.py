@@ -35,7 +35,7 @@ class QGen:
     
 
     def __init__(self):
-        self.unused_items = DS.copy()
+        self.unused_items = []+DS
 
     def generate_question(self):
         ques = {}

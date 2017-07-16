@@ -45,7 +45,7 @@ class LevelBlock(Label):
     current_level = NumericProperty(2)
     def __init__(self, level_no, current_level, **kw):
         super(LevelBlock, self).__init__(**kw)
-        self.font_size = "20sp"
+        
         self.ratio = 0.99
         self.text = "%s" % level_no
         self.level_no = level_no

@@ -12,7 +12,7 @@ data = """
     level_no: 0
     current_level: 2
     text: "%s" % self.level_no
-    
+    font_size: "20sp"
     canvas.before:
         Color:
             rgb: ui_color if self.current_level< self.level_no else block_color
