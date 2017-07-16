@@ -23,7 +23,7 @@ quesTypeText = {
     'LastBless' : 'מהי הברכה האחרונה על %s?',
     'Special' : 'מה מברכים על %s?',
     'Name' : 'עבור מי מהבאים תברך %s?',
-    #'Unusual' : 'מי מהבאים יוצא דופן?'
+    'Unusual' : 'מי מהבאים יוצא דופן?'
 }
 
 #the thing of the question about↓
@@ -79,38 +79,44 @@ class QGen:
 
         return ques
 
+    _max_times = 500
     def ask_unusual(self, the_thing):
         ques = {}
         categs = self.get_cagtegories(the_thing)
-        border = random.random()
 
         ques['question'] = quesTypeText['Unusual']
 
         options = [the_thing['Name']]
-        the_diferent = None
-        while True:
-            curo = random.choice(DS)
-            to_append = curo['Name']
-            if(not to_append):
-                continue;
-            elif (to_append in options):
-                continue;
-            else:
-                dif = 0
-                for c in categs:
-                    if the_thing[c] != curo[c]:
-                        dif += 1
-                if dif * random.random() > border:
-                    options.append(curo['Name'])
-                    the_diferent = curo
+        while len(options) < 4 :
+            border = random.random()
+            the_diferent = None
+            while True:
+                curo = random.choice(DS)
+                to_append = curo['Name']
+                if(not to_append):
+                    continue;
+                elif (to_append in options):
+                    continue;
+                else:
+                    dif = 0
+                    for c in categs:
+                        if the_thing[c] != curo[c]:
+                            dif += 1
+                    if dif * random.random() > border:
+                        options.append(curo['Name'])
+                        the_diferent = curo
+                        break
+            times = self._max_times
+            while len(options) < 4:
+                times -= 1
+                if times <= 0:
                     break
-        while len(options) < 4:
-            curo = random.choice(DS)
-            to_append = curo['Name']
-            if to_append in options:
-                continue
-            elif (curo['FirstBless'] == the_diferent['FirstBless']) & (curo['LastBless'] == the_diferent['LastBless']):
-                options.append(curo['Name'])
+                curo = random.choice(DS)
+                to_append = curo['Name']
+                if to_append in options:
+                    continue
+                elif (curo['FirstBless'] == the_diferent['FirstBless']) & (curo['LastBless'] == the_diferent['LastBless']):
+                    options.append(curo['Name'])
 
         correct = self.get_currect_and_shuffle(options)
         ques['answers'] = options
