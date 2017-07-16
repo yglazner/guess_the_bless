@@ -131,6 +131,7 @@ data = """
         on_press: pop.dismiss()
         background_color: btn_color
         Image:
+            id: img
             allow_stretch: True
             size: b.size
             

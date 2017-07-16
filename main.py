@@ -19,6 +19,7 @@ import ui
 import random
 from kivy.uix.popup import Popup
 from kivy.core.audio import SoundLoader
+from kivy.clock import Clock
 
 py3 = sys.version[0] == '3'
 print (py3, sys.version)
@@ -50,12 +51,7 @@ class LevelBlock(Label):
         self.level_no = level_no
         self.current_level = current_level
     
-
-class FakeGen(object):
-    
-    def generate_question(self):
-        
-        return {
+SAMPLE_QUESTION = {
                 'image': u"egg.png",
                 
                 "question": u"מה מברכים לפני שמתים?",
@@ -66,6 +62,12 @@ class FakeGen(object):
                 "answers_images": ['pop.png', ],
                 "correct_answer": 0,  
                }
+
+class FakeGen(object):
+    
+    def generate_question(self):
+        
+        return SAMPLE_QUESTION
 try:
     from question_generator import QGen
 except ImportError:
@@ -79,6 +81,10 @@ class ImagePop(Popup):
         super(ImagePop, self).__init__( **kw)
         self.source = choice
         self.content.bind(on_press=self.dismiss)
+        Clock.schedule_once(self._fix_center)
+        
+    def _fix_center(self, dt=None):
+        self.ids.img.center = self.ids.b.center
 
 success_snds = [SoundLoader.load('Sounds/success%d.wav' % i)
                 for i in range(1, 3)]
@@ -115,9 +121,10 @@ class GameScreen(Screen):
             
             
     def next_question(self):
-            
+        self.question = SAMPLE_QUESTION    
         self.question = self.g.generate_question()
         self.set_level(self.level + 1)
+        Clock.schedule_once(self.do_layout)
         #self.applause_sound.play()
         
         
@@ -153,8 +160,9 @@ class GameScreen(Screen):
                 self.show_win()
                 sm.current = 'menu'
                 return
-            self.show_success()
             self.next_question()
+            self.show_success()
+            
         else:
             self.show_fail()
             sm.current = 'menu'
