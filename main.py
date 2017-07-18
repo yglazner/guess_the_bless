@@ -14,7 +14,7 @@ from kivy.uix.label import Label
 from kivy.lang import Builder
 #from kivy.core.audio import SoundLoader
 
-import sys
+
 import ui
 import random
 from kivy.uix.popup import Popup
@@ -23,7 +23,7 @@ from kivy.clock import Clock
 
 py3 = sys.version[0] == '3'
 print (py3, sys.version)
-__version__ = '1.0.1'
+__version__ = '1.0.2'
 
 image_folder = 'Img'
 
