@@ -20,6 +20,8 @@ import random
 from kivy.uix.popup import Popup
 from kivy.core.audio import SoundLoader
 from kivy.clock import Clock
+import os
+from glob import glob
 
 py3 = sys.version[0] == '3'
 print (py3, sys.version)
@@ -99,6 +101,9 @@ def play_success():
 def play_win():
     win_snd.play()
 
+success_imgs = glob('Img/memes/success*.jpg')
+
+fail_imgs = glob('Img/memes/fail*.jpg')
 
 class GameScreen(Screen):
     
@@ -141,14 +146,14 @@ class GameScreen(Screen):
         pop.open()
 
     def show_success(self):
-        success_imgs = ['Img/memes/success%s.jpg' % i for i in range(1, 12)]
+        
         pop = ImagePop(random.choice(success_imgs))
         play_success()
         pop.open()
     
     
     def show_fail(self):
-        fail_imgs = ['Img/memes/fail%s.jpg' % i for i in range(1, 10)]
+        
         pop = ImagePop(random.choice(fail_imgs))
         fail_snd.play()
         pop.open()
