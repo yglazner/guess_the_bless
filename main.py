@@ -88,8 +88,8 @@ class ImagePop(Popup):
     def _fix_center(self, dt=None):
         self.ids.img.center = self.ids.b.center
 
-success_snds = [SoundLoader.load('Sounds/success%d.wav' % i)
-                for i in range(1, 3)]
+success_snds = [SoundLoader.load(snd) for snd in
+                glob('Sounds/success*.wav')]
 fail_snd = SoundLoader.load('Sounds/fail.wav')
 
 win_snd = SoundLoader.load('Sounds/claps.wav')
