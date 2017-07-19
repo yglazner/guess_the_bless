@@ -130,14 +130,18 @@ data = """
         size_hint: 1.0, 1.0
         on_press: pop.dismiss()
         background_color: btn_color
-        Image:
-            id: img
-            allow_stretch: True
+        BoxLayout:
+            size_hint: 1.0, 1.0
+            pos: b.pos
             size: b.size
-            
-            source: "%s" % pop.source
-            
-            keep_ratio: True
-            center: b.center
+            Image:
+                id: img
+                allow_stretch: True
+                size_hint: 1.0, 1.0
+                
+                source: "%s" % pop.source
+                
+                keep_ratio: True
+                #center: b.center
 
 """

@@ -83,7 +83,7 @@ class ImagePop(Popup):
         super(ImagePop, self).__init__( **kw)
         self.source = choice
         self.content.bind(on_press=self.dismiss)
-        Clock.schedule_once(self._fix_center)
+        #Clock.schedule_once(self._fix_center)
         
     def _fix_center(self, dt=None):
         self.ids.img.center = self.ids.b.center
