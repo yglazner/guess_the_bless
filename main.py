@@ -25,7 +25,7 @@ from glob import glob
 
 py3 = sys.version[0] == '3'
 print (py3, sys.version)
-__version__ = '1.0.2'
+__version__ = '1.0.3'
 
 image_folder = 'Img'
 
